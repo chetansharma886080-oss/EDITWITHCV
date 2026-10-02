@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EditWithCV — Admin Dashboard</title>
+<style>
+:root{--bg:#060b17;--panel:#0c1426;--panel2:#101b31;--line:#1b2a45;--text:#eef5ff;--muted:#8291aa;--blue:#3d8cff;--cyan:#28d7ff;--green:#25d69a;--yellow:#ffbd4a;--pink:#ef5bff;--red:#ff5d6c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% 0,#102447 0,#060b17 40%);color:var(--text);font:14px Inter,system-ui,Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.side{width:245px;background:#07101f;border-right:1px solid var(--line);padding:18px 12px;position:fixed;height:100vh}.brand{display:flex;align-items:center;gap:10px;padding:8px 10px 24px;font-weight:800;letter-spacing:.4px}.logo{width:34px;height:34px;border:2px solid var(--cyan);border-radius:50%;display:grid;place-items:center;color:var(--cyan);box-shadow:0 0 20px #28d7ff44}.nav{display:grid;gap:5px}.nav button{background:none;border:0;color:#9caac0;text-align:left;padding:12px 13px;border-radius:9px}.nav button:hover,.nav button.active{background:#122443;color:#fff}.main{margin-left:245px;width:calc(100% - 245px);padding:22px 28px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.search{width:340px;background:#0b1730;border:1px solid #1b3760;color:#fff;padding:11px 14px;border-radius:9px}.top button{background:#152746;border:1px solid #26446d;color:#dceaff;padding:10px 14px;border-radius:9px}.view{display:none}.view.active{display:block}.title{font-size:25px;font-weight:800;margin:0 0 5px}.sub{color:var(--muted);margin-bottom:20px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:linear-gradient(145deg,#0d1830,#091224);border:1px solid var(--line);border-radius:13px;padding:18px}.label{color:var(--muted);font-size:12px}.value{font-size:25px;font-weight:800;margin-top:7px}.green{color:var(--green)}.blue{color:var(--blue)}.yellow{color:var(--yellow)}.pink{color:var(--pink)}.grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:16px}.panel{background:#0b1426;border:1px solid var(--line);border-radius:13px;padding:17px}.panel h3{margin:0 0 14px}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:12px 9px;border-bottom:1px solid #17243a;text-align:left;font-size:12px}.table th{color:#8291aa;font-weight:600}.badge{padding:4px 8px;border-radius:99px;font-size:11px;background:#172641;color:#cfe0ff}.paid{background:#0c382c;color:#55e0b1}.pending{background:#3b2b0b;color:#ffd06b}.btn{border:0;border-radius:7px;padding:7px 10px;background:#1765dc;color:white}.btn.alt{background:#162641}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field{display:grid;gap:6px}.field label{font-size:12px;color:#8e9db5}.field input,.field select,.field textarea{background:#091326;border:1px solid #20324f;color:#fff;padding:11px;border-radius:8px;outline:none}.field textarea{min-height:90px}.full{grid-column:1/-1}.actions{display:flex;gap:8px;margin-top:14px}.list{display:grid;gap:10px}.item{padding:13px;background:#0d182b;border:1px solid #1b2a45;border-radius:9px;display:flex;justify-content:space-between}.portfolio{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.work{background:#0d182b;border:1px solid var(--line);border-radius:11px;overflow:hidden}.thumb{height:130px;background:linear-gradient(135deg,#172c50,#12203a);display:grid;place-items:center;color:#6f83a4;font-size:34px}.work .p{padding:12px}.small{font-size:12px;color:var(--muted)}.bar{height:8px;background:#15223a;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:99px}.notice{padding:12px;border:1px solid #25446d;background:#0d1b32;border-radius:9px;color:#a9c5e8;margin-bottom:14px}
+@media(max-width:900px){.side{width:70px}.brand span,.nav button span{display:none}.main{margin-left:70px;width:calc(100% - 70px);padding:16px}.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.portfolio{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.cards,.portfolio,.form{grid-template-columns:1fr}.top{gap:8px}.search{width:55%}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="brand"><div class="logo">C</div><span>EDITWITHCV</span></div>
+<div class="nav">
+<button class="active" data-view="dashboard">▣ <span>Dashboard</span></button>
+<button data-view="orders">◈ <span>Orders</span></button>
+<button data-view="clients">♙ <span>Clients</span></button>
+<button data-view="videos">▶ <span>Videos & Prices</span></button>
+<button data-view="payments">₹ <span>Payments</span></button>
+<button data-view="portfolio">▧ <span>Portfolio</span></button>
+<button data-view="editors">♟ <span>Editors / Staff</span></button>
+<button data-view="messages">✉ <span>Messages</span></button>
+<button data-view="reports">◫ <span>Reports</span></button>
+<button data-view="settings">⚙ <span>Settings</span></button>
+</div>
+</aside>
+<main class="main">
+<div class="top"><input id="search" class="search" placeholder="Search clients, orders, payments..."><button onclick="notify()">＋ New Order</button></div>
+
+<section id="dashboard" class="view active">
+<h1 class="title">Dashboard</h1><div class="sub">EditWithCV editing business at a glance.</div>
+<div class="cards">
+<div class="card"><div class="label">Total Revenue</div><div class="value green" id="revenue">₹0</div></div>
+<div class="card"><div class="label">Pending Payments</div><div class="value yellow" id="pending">₹0</div></div>
+<div class="card"><div class="label">Videos Delivered</div><div class="value blue" id="delivered">0</div></div>
+<div class="card"><div class="label">Net Profit</div><div class="value pink" id="profit">₹0</div></div>
+</div>
+<div class="grid2">
+<div class="panel"><h3>Recent Payments</h3><table class="table" id="dashPayments"></table></div>
+<div class="panel"><h3>Monthly Performance</h3><div class="small">Revenue</div><div style="font-size:30px;font-weight:800;margin:8px 0 16px" id="monthRev">₹0</div><div class="bar"><i style="width:72%"></i></div><div style="height:16px"></div><div class="small">Orders completed</div><div style="font-size:25px;font-weight:800;margin-top:7px" id="monthOrders">0</div></div>
+</div>
+</section>
+
+<section id="orders" class="view"><h1 class="title">Orders</h1><div class="sub">Track every editing project from order to delivery.</div><div class="panel"><table class="table" id="ordersTable"></table></div></section>
+
+<section id="clients" class="view"><h1 class="title">Clients</h1><div class="sub">Client history, contact details and lifetime value.</div><div class="panel"><div class="actions"><button class="btn" onclick="addClient()">＋ Add Client</button></div><table class="table" id="clientsTable"></table></div></section>
+
+<section id="videos" class="view"><h1 class="title">Videos & Prices</h1><div class="sub">Set your editing packages and keep the agreed price attached to every order.</div><div class="panel"><table class="table"><tr><th>Service</th><th>Duration</th><th>Editing</th><th>Price</th><th>Status</th></tr>
+<tr><td>Short/Reel</td><td>Up to 60 sec</td><td>Basic + captions</td><td>₹600</td><td><span class="badge paid">Active</span></td></tr>
+<tr><td>Short/Reel Pro</td><td>Up to 60 sec</td><td>Advanced effects</td><td>₹1,000</td><td><span class="badge paid">Active</span></td></tr>
+<tr><td>YouTube Basic</td><td>Up to 15 min</td><td>Less editing</td><td>₹1,000</td><td><span class="badge paid">Active</span></td></tr>
+<tr><td>YouTube Pro</td><td>Up to 15 min</td><td>Heavy editing</td><td>₹1,400</td><td><span class="badge paid">Active</span></td></tr>
+</table></div></section>
+
+<section id="payments" class="view"><h1 class="title">Payments</h1><div class="sub">See exactly how much was paid, when it was paid and what remains.</div><div class="panel"><div class="notice">For real payments, connect a payment gateway/database later. This prototype records payment dates and amounts locally.</div><table class="table" id="paymentsTable"></table></div></section>
+
+<section id="portfolio" class="view"><h1 class="title">Portfolio</h1><div class="sub">Showcase completed edits to clients.</div><div class="portfolio">
+<div class="work"><div class="thumb">▶</div><div class="p"><b>Fashion Reel</b><div class="small">Instagram • ₹1,000</div></div></div>
+<div class="work"><div class="thumb">▶</div><div class="p"><b>Podcast Edit</b><div class="small">YouTube • ₹1,400</div></div></div>
+<div class="work"><div class="thumb">▶</div><div class="p"><b>Business Promo</b><div class="small">Brand • ₹1,200</div></div></div>
+</div></section>
+
+<section id="editors" class="view"><h1 class="title">Editors / Staff</h1><div class="sub">Assign work and track payouts.</div><div class="panel"><table class="table"><tr><th>Editor</th><th>Assigned</th><th>Completed</th><th>Payout</th><th>Status</th></tr><tr><td>Editor 01</td><td>8</td><td>6</td><td>₹2,400</td><td><span class="badge paid">Active</span></td></tr><tr><td>Editor 02</td><td>5</td><td>5</td><td>₹1,800</td><td><span class="badge paid">Active</span></td></tr></table></div></section>
+
+<section id="messages" class="view"><h1 class="title">Messages</h1><div class="sub">Keep client communication organized.</div><div class="list"><div class="item"><span><b>Shubham</b><br><span class="small">Please send the final reel.</span></span><span class="badge">New</span></div><div class="item"><span><b>Client</b><br><span class="small">Can you add captions?</span></span><span class="badge">Reply</span></div></div></section>
+
+<section id="reports" class="view"><h1 class="title">Reports</h1><div class="sub">Business totals and payment history.</div><div class="cards"><div class="card"><div class="label">Collected</div><div class="value green" id="rCollected">₹0</div></div><div class="card"><div class="label">Outstanding</div><div class="value yellow" id="rOutstanding">₹0</div></div><div class="card"><div class="label">Expenses / Editor Payouts</div><div class="value pink">₹0</div></div><div class="card"><div class="label">Profit</div><div class="value blue" id="rProfit">₹0</div></div></div></section>
+
+<section id="settings" class="view"><h1 class="title">Settings</h1><div class="sub">Agency details and defaults.</div><div class="panel form"><div class="field"><label>Agency name</label><input value="EditWithCV"></div><div class="field"><label>Currency</label><select><option>INR (₹)</option></select></div><div class="field"><label>UPI ID</label><input placeholder="yourupi@bank"></div><div class="field"><label>Contact email</label><input placeholder="hello@example.com"></div><div class="field full"><label>Invoice note</label><textarea placeholder="Thank you for choosing our editing service."></textarea></div><div class="actions full"><button class="btn" onclick="notify()">Save Settings</button></div></div></section>
+</main>
+</div>
+<script>
+const data={
+ payments:[
+  {id:"PAY-1004",client:"Shubham",order:"CY00006",amount:900,date:"02 Oct 2026",status:"Pending"},
+  {id:"PAY-1003",client:"Aman",order:"CY00005",amount:1000,date:"30 Sep 2026",status:"Paid"},
+  {id:"PAY-1002",client:"Riya",order:"CY00004",amount:600,date:"28 Sep 2026",status:"Paid"}
+ ],
+ orders:[
+  {id:"CY00006",client:"Shubham",service:"YouTube Pro",price:1400,status:"Pending",date:"02 Oct 2026"},
+  {id:"CY00005",client:"Aman",service:"Short/Reel Pro",price:1000,status:"Completed",date:"30 Sep 2026"},
+  {id:"CY00004",client:"Riya",service:"Short/Reel",price:600,status:"Completed",date:"28 Sep 2026"}
+ ],
+ clients:[
+  {name:"Shubham",contact:"shubham@example.com",orders:1,value:0},
+  {name:"Aman",contact:"aman@example.com",orders:1,value:1000},
+  {name:"Riya",contact:"riya@example.com",orders:1,value:600}
+ ]
+};
+function money(n){return "₹"+Number(n).toLocaleString("en-IN")}
+function render(){
+ const paid=data.payments.filter(x=>x.status==="Paid").reduce((a,x)=>a+x.amount,0);
+ const pending=data.orders.reduce((a,o)=>a+o.price,0)-paid;
+ const completed=data.orders.filter(o=>o.status==="Completed").length;
+ document.querySelector("#revenue").textContent=money(paid);document.querySelector("#pending").textContent=money(Math.max(0,pending));document.querySelector("#delivered").textContent=completed;document.querySelector("#profit").textContent=money(paid);
+ document.querySelector("#monthRev").textContent=money(paid);document.querySelector("#monthOrders").textContent=completed;
+ document.querySelector("#rCollected").textContent=money(paid);document.querySelector("#rOutstanding").textContent=money(Math.max(0,pending));document.querySelector("#rProfit").textContent=money(paid);
+ const payHead="<tr><th>Payment</th><th>Client</th><th>Amount</th><th>Date</th><th>Status</th></tr>";
+ document.querySelector("#dashPayments").innerHTML=payHead+data.payments.map(p=>`<tr><td>${p.id}</td><td>${p.client}</td><td>${money(p.amount)}</td><td>${p.date}</td><td><span class="badge ${p.status==="Paid"?"paid":"pending"}">${p.status}</span></td></tr>`).join("");
+ document.querySelector("#paymentsTable").innerHTML=payHead+"<th>Order</th></tr>"+data.payments.map(p=>`<tr><td>${p.id}</td><td>${p.client}</td><td>${money(p.amount)}</td><td>${p.date}</td><td><span class="badge ${p.status==="Paid"?"paid":"pending"}">${p.status}</span></td><td>${p.order}</td></tr>`).join("");
+ document.querySelector("#ordersTable").innerHTML="<tr><th>Order</th><th>Client</th><th>Service</th><th>Price</th><th>Date</th><th>Status</th></tr>"+data.orders.map(o=>`<tr><td>${o.id}</td><td>${o.client}</td><td>${o.service}</td><td>${money(o.price)}</td><td>${o.date}</td><td><span class="badge ${o.status==="Completed"?"paid":"pending"}">${o.status}</span></td></tr>`).join("");
+ document.querySelector("#clientsTable").innerHTML="<tr><th>Client</th><th>Contact</th><th>Orders</th><th>Lifetime Value</th></tr>"+data.clients.map(c=>`<tr><td>${c.name}</td><td>${c.contact}</td><td>${c.orders}</td><td>${money(c.value)}</td></tr>`).join("");
+}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(b.dataset.view).classList.add("active")});
+function notify(){alert("Prototype action — connect this button to your database/payment system for live use.")}
+function addClient(){data.clients.push({name:"New Client",contact:"new@example.com",orders:0,value:0});render()}
+render();
+</script>
+</body></html>
